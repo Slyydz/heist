@@ -58,55 +58,65 @@ namespace heist
                 Console.WriteLine($"{robber.Name}");
             }
 
+
             Console.Write("Enter new crew member name: ");
             string crewMember = Console.ReadLine();
 
-            Console.WriteLine();
-
-            Console.Write($"Enter a specialty for {crewMember} (Hacker, Lock Specialist, Muscle): ");
-            string specialty = Console.ReadLine();
-
-            Console.WriteLine();
-
-            Console.Write($"Enter the skill level for {crewMember} (1-100): ");
-            int skillLevel = Int32.Parse(Console.ReadLine());
-
-            Console.WriteLine();
-
-            Console.Write($"Enter the percentage of the cut {crewMember} will get: ");
-            int cutPer = Int32.Parse(Console.ReadLine());
-
-            switch (specialty)
+            while (crewMember != "")
             {
-                case "Hacker":
-                    rolodex.Add(new Hacker()
-                    {
-                        Name = crewMember,
-                        SkillLevel = skillLevel,
-                        PercentageCut = cutPer
-                    });
-                    break;
-                case "Muscle":
-                    rolodex.Add(new Muscle()
-                    {
-                        Name = crewMember,
-                        SkillLevel = skillLevel,
-                        PercentageCut = cutPer
-                    });
-                    break;
-                case "Lock Specialist":
-                    rolodex.Add(new LockSpecialists()
-                    {
-                        Name = crewMember,
-                        SkillLevel = skillLevel,
-                        PercentageCut = cutPer
-                    });
-                    break;
-            }
 
-            foreach (IRobber robber in rolodex)
-            {
-                Console.WriteLine($"{robber.Name}");
+                Console.WriteLine();
+
+                Console.Write($"Enter a specialty for {crewMember} (Hacker, Lock Specialist, Muscle): ");
+                string specialty = Console.ReadLine();
+
+                Console.WriteLine();
+
+                Console.Write($"Enter the skill level for {crewMember} (1-100): ");
+                int skillLevel = Int32.Parse(Console.ReadLine());
+
+                Console.WriteLine();
+
+                Console.Write($"Enter the percentage of the cut {crewMember} will get: ");
+                int cutPer = Int32.Parse(Console.ReadLine());
+
+                switch (specialty)
+                {
+                    case "Hacker":
+                        rolodex.Add(new Hacker()
+                        {
+                            Name = crewMember,
+                            SkillLevel = skillLevel,
+                            PercentageCut = cutPer
+                        });
+                        break;
+                    case "Muscle":
+                        rolodex.Add(new Muscle()
+                        {
+                            Name = crewMember,
+                            SkillLevel = skillLevel,
+                            PercentageCut = cutPer
+                        });
+                        break;
+                    case "Lock Specialist":
+                        rolodex.Add(new LockSpecialists()
+                        {
+                            Name = crewMember,
+                            SkillLevel = skillLevel,
+                            PercentageCut = cutPer
+                        });
+                        break;
+                }
+
+                foreach (IRobber robber in rolodex)
+                {
+                    Console.WriteLine($"{robber.Name}");
+                }
+
+                Console.WriteLine();
+
+                Console.Write("Enter new crew member name: ");
+                crewMember = Console.ReadLine();
             }
 
         }
