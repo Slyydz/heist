@@ -3,7 +3,7 @@ using System;
 namespace heist
 {
 
-    public class Muscles : IRobber
+    public class Muscle : IRobber
     {
         public string Name { get; set; }
 
