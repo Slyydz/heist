@@ -11,7 +11,7 @@ namespace heist
             Muscle muscle1 = new Muscle()
             {
                 Name = "nameHoldMuscle1",
-                SkillLevel = 50,
+                SkillLevel = 100,
                 PercentageCut = 10
             };
             Muscle muscle2 = new Muscle()
@@ -35,7 +35,7 @@ namespace heist
             LockSpecialists lock1 = new LockSpecialists()
             {
                 Name = "nameHoldLock1",
-                SkillLevel = 50,
+                SkillLevel = 100,
                 PercentageCut = 10
             };
             LockSpecialists lock2 = new LockSpecialists()
@@ -195,6 +195,16 @@ namespace heist
             foreach (IRobber member in crew)
             {
 
+                Console.WriteLine($"{member.Name}");
+
+
+            }
+
+            Console.WriteLine();
+
+            foreach (IRobber member in crew)
+            {
+
                 Console.WriteLine();
                 member.PerformSkill(bank1);
 
@@ -208,7 +218,21 @@ namespace heist
             else
             {
                 Console.WriteLine();
-                Console.WriteLine($"Successfully robbed the bank and made ${bank1.CashOnHand} dollars!");
+                Console.WriteLine("Successfully robbed the bank!");
+                Console.WriteLine();
+
+                double crewTake = bank1.CashOnHand;
+
+                foreach (IRobber member in crew)
+                {
+                    Console.WriteLine($"{member.Name}'s cut: {Math.Round(bank1.CashOnHand * ((double)member.PercentageCut / 100))}");
+
+                    crewTake -= Math.Round(bank1.CashOnHand * ((double)member.PercentageCut / 100));
+                }
+
+                Console.WriteLine();
+
+                Console.WriteLine($"Your Take: {crewTake}");
             }
 
         }
