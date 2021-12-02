@@ -131,15 +131,50 @@ namespace heist
                 {"Security Guard", bank1.SecurityGuardScore}
             };
 
+            Console.WriteLine();
+
             var sortedDict = from entry in systemList orderby entry.Value ascending select entry;
 
             Console.WriteLine($"Least Secure: {sortedDict.ElementAt(0).Key}");
             Console.WriteLine($"Most Secure: {sortedDict.ElementAt(2).Key}");
 
-            foreach (IRobber robber in rolodex)
+            for (int i = 0; i < rolodex.Count; i++)
             {
-                Console.WriteLine($"Name: {robber.Name} || Specialty: {robber.GetType().ToString().Split('.')[1]} || Skill level: {robber.SkillLevel} || Cut: {robber.PercentageCut}");
+                Console.WriteLine($"({i + 1}) Name: {rolodex[i].Name} || Specialty: {rolodex[i].GetType().ToString().Split('.')[1]} || Skill level: {rolodex[i].SkillLevel} || Cut: {rolodex[i].PercentageCut}");
             }
+
+            List<IRobber> crew = new List<IRobber>();
+
+            Console.Write("Enter the number of the operative you would like to include in the heist: ");
+            string output = Console.ReadLine();
+
+            while (output != "")
+            {
+                int num = int.Parse(output) - 1;
+                crew.Add(rolodex[num]);
+
+                int total = 0;
+                foreach (IRobber robber in rolodex)
+                {
+                    total += robber.PercentageCut;
+                }
+
+                List<IRobber> filtered = rolodex.Where(r => !crew.Contains(r) && r.PercentageCut < 100 - crew.Select(s => s.PercentageCut).Sum()).ToList();
+
+                for (int i = 0; i < filtered.Count; i++)
+                {
+                    Console.WriteLine($"({i + 1}) Name: {filtered[i].Name} || Specialty: {filtered[i].GetType().ToString().Split('.')[1]} || Skill level: {filtered[i].SkillLevel} || Cut: {filtered[i].PercentageCut}");
+                }
+                Console.Write("Enter the number of the operative you would like to include in the heist: ");
+                output = Console.ReadLine();
+            }
+
+            foreach (IRobber member in crew)
+            {
+                Console.WriteLine(member.Name);
+            }
+
+
 
         }
     }
