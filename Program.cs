@@ -59,6 +59,8 @@ namespace heist
                 Console.WriteLine($"{robber.Name}");
             }
 
+            Console.WriteLine();
+
 
             Console.Write("Enter new crew member name: ");
             string crewMember = Console.ReadLine();
@@ -138,6 +140,10 @@ namespace heist
             Console.WriteLine($"Least Secure: {sortedDict.ElementAt(0).Key}");
             Console.WriteLine($"Most Secure: {sortedDict.ElementAt(2).Key}");
 
+            Console.WriteLine();
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine();
+
             for (int i = 0; i < rolodex.Count; i++)
             {
                 Console.WriteLine($"({i + 1}) Name: {rolodex[i].Name} || Specialty: {rolodex[i].GetType().ToString().Split('.')[1]} || Skill level: {rolodex[i].SkillLevel} || Cut: {rolodex[i].PercentageCut}");
@@ -145,15 +151,19 @@ namespace heist
 
             List<IRobber> crew = new List<IRobber>();
 
+            Console.WriteLine();
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine();
+
             Console.Write("Enter the number of the operative you would like to include in the heist: ");
             string output = Console.ReadLine();
+
 
             while (output != "")
             {
                 int num = int.Parse(output) - 1;
-                crew.Add(rolodex[num]);
-
                 int total = 0;
+
                 foreach (IRobber robber in rolodex)
                 {
                     total += robber.PercentageCut;
@@ -161,20 +171,45 @@ namespace heist
 
                 List<IRobber> filtered = rolodex.Where(r => !crew.Contains(r) && r.PercentageCut < 100 - crew.Select(s => s.PercentageCut).Sum()).ToList();
 
-                for (int i = 0; i < filtered.Count; i++)
+                if (filtered.Contains(rolodex[num]))
                 {
-                    Console.WriteLine($"({i + 1}) Name: {filtered[i].Name} || Specialty: {filtered[i].GetType().ToString().Split('.')[1]} || Skill level: {filtered[i].SkillLevel} || Cut: {filtered[i].PercentageCut}");
+                    crew.Add(rolodex[num]);
+                    Console.WriteLine();
+                    Console.WriteLine("Operative succesfully added!");
                 }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Operative is already added!");
+                }
+
+                Console.WriteLine();
+
                 Console.Write("Enter the number of the operative you would like to include in the heist: ");
                 output = Console.ReadLine();
             }
 
+            Console.WriteLine();
+            Console.WriteLine("-------------------------------");
+
             foreach (IRobber member in crew)
             {
-                Console.WriteLine(member.Name);
+
+                Console.WriteLine();
+                member.PerformSkill(bank1);
+
             }
 
-
+            if (bank1.isSecure)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Uh Oh! You got caught :(");
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Successfully robbed the bank and made ${bank1.CashOnHand} dollars!");
+            }
 
         }
     }
