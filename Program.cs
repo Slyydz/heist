@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace heist
 {
@@ -118,6 +119,30 @@ namespace heist
                 Console.Write("Enter new crew member name: ");
                 crewMember = Console.ReadLine();
             }
+
+            Random randInt = new Random();
+
+            Bank bank1 = new Bank()
+            {
+                AlarmScore = randInt.Next(0, 100),
+                VaultScore = randInt.Next(0, 100),
+                SecurityGuardScore = randInt.Next(0, 100),
+                CashOnHand = randInt.Next(50000, 1000000)
+            };
+
+            Dictionary<string, int> systemList = new Dictionary<string, int>(){
+                {"Alarm", bank1.AlarmScore},
+                {"Vault", bank1.VaultScore},
+                {"Security Guard", bank1.SecurityGuardScore}
+            };
+
+            var sortedDict = from entry in systemList orderby entry.Value ascending select entry;
+
+
+
+
+            Console.WriteLine($"Least Secure: {sortedDict.ElementAt(0).Key}");
+            Console.WriteLine($"Most Secure: {sortedDict.ElementAt(2).Key}");
 
         }
     }
