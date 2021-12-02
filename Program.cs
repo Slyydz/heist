@@ -10,37 +10,37 @@ namespace heist
         {
             Muscle muscle1 = new Muscle()
             {
-                Name = "nameHold",
+                Name = "nameHoldMuscle1",
                 SkillLevel = 50,
                 PercentageCut = 10
             };
             Muscle muscle2 = new Muscle()
             {
-                Name = "nameHold",
+                Name = "nameHoldMuscle2",
                 SkillLevel = 50,
                 PercentageCut = 10
             };
             Hacker hacker1 = new Hacker()
             {
-                Name = "nameHold",
+                Name = "nameHoldHacker1",
                 SkillLevel = 50,
                 PercentageCut = 10
             };
             Hacker hacker2 = new Hacker()
             {
-                Name = "nameHold",
+                Name = "nameHoldHacker2",
                 SkillLevel = 50,
                 PercentageCut = 10
             };
             LockSpecialists lock1 = new LockSpecialists()
             {
-                Name = "nameHold",
+                Name = "nameHoldLock1",
                 SkillLevel = 50,
                 PercentageCut = 10
             };
             LockSpecialists lock2 = new LockSpecialists()
             {
-                Name = "nameHold",
+                Name = "nameHoldLock2",
                 SkillLevel = 50,
                 PercentageCut = 10
             };
@@ -109,11 +109,6 @@ namespace heist
                         break;
                 }
 
-                foreach (IRobber robber in rolodex)
-                {
-                    Console.WriteLine($"{robber.Name}");
-                }
-
                 Console.WriteLine();
 
                 Console.Write("Enter new crew member name: ");
@@ -138,11 +133,13 @@ namespace heist
 
             var sortedDict = from entry in systemList orderby entry.Value ascending select entry;
 
-
-
-
             Console.WriteLine($"Least Secure: {sortedDict.ElementAt(0).Key}");
             Console.WriteLine($"Most Secure: {sortedDict.ElementAt(2).Key}");
+
+            foreach (IRobber robber in rolodex)
+            {
+                Console.WriteLine($"Name: {robber.Name} || Specialty: {robber.GetType().ToString().Split('.')[1]} || Skill level: {robber.SkillLevel} || Cut: {robber.PercentageCut}");
+            }
 
         }
     }
